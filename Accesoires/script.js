@@ -11,7 +11,7 @@ accesoireContainer.innerHTML += `
     <div class=" text-lg text-gray-900 p-8 mt-6 flex font-medium title-font mb-4">${vetementobj.prix}</div>
 
     <div class=" leading-relaxed p-4 mb-6 text-base">${vetementobj.description}</div>
-    </div>
+    </div>  
 
  `
 })
