@@ -6,7 +6,7 @@ const vetementList = [{
     "description": "Idée de tenue - Outfit Ideas - Clothes in 2023 | Streetwear outfit ",
     "nom": "Homme",
     "img": "https://i.pinimg.com/originals/d0/e7/d2/d0e7d204d00549a924a272ee5ab78182.jpg",
-    "ingredients": [" "," "," ", "  ", " ", "", "", ""]
+    
     },
     {
     "nom": "Homme",
