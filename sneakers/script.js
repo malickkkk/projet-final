@@ -1,16 +1,56 @@
-import { sneakerList } from "./data.js";
 
-//Afficher mes sneakers 
-const sneakerContainer = document.querySelector('#sneakers-container')
-sneakerList.forEach(vetementobj => {
-sneakerContainer .innerHTML += `      
- <div class=" cursor-pointer p-4 hover:scale-105 transition border-slate-100 border-2 p-4" >
-    <img class="h-40 w-40 rounded w-full object-cover  object-center shadow hover:shadow-lg mb-6" src="${vetementobj.img}">
-    <div class=" tracking-widest p-2 text-indigo-500 text-xs font-medium title-font">${vetementobj.nom}</div>
-    <div class=" text-lg text-gray-900 p-8 mt-6 flex font-medium title-font mb-4">${vetementobj.prix}</div>
 
-    <div class=" leading-relaxed p-4 mb-6 text-base">${vetementobj.description}</div>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+import { getFirestore, collection, addDoc, updateDoc, deleteDoc, setDoc, getDoc, where, writeBatch, query, orderBy, doc, limit, getDocs } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyA4IIP8oUW-55Q2C5LQoMdXCP1YnD4Fyqw",
+    authDomain: "streetdrip-b6a1b.firebaseapp.com",
+    projectId: "streetdrip-b6a1b",
+    storageBucket: "streetdrip-b6a1b.appspot.com",
+    messagingSenderId: "18480981564",
+    appId: "1:18480981564:web:47dca3fbefc5ad2c4e4539"
+};
+
+// Initialize Firebase
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+  
+
+
+
+
+//Fonction pour recuperer ma collection
+  const displaySneakers = (sneakers) => {
+    const container = document.querySelector('#sneakers-container'); 
+      // Parcourez les données de mon catalogue
+    sneakers.forEach((obj) => {
+      const objElement = document.createElement('div');
+      objElement.classList.add('sneakers-index');
+      objElement.innerHTML = `
+      <div class="bg-red-100  border-2 rounded shadow p-4 m-4   cursor-pointer transition transform hover:scale-105">
+      <img class="w-40 h-40 object-cover vetement-image" src="${obj.img}">
+      <div class="text-indigo-500 text-xs font-medium">${obj.nom}</div>
+      <div class="text-gray-900 text-lg font-medium">${obj.prix}</div>
+      <div class="text-base">${obj.description}</div>
     </div>
 
- `
-})
+    `
+      container.appendChild(objElement);
+    });
+  };
+  
+  const getData = async () => {
+    const collectionRef = collection(db, "sneakers");
+    const querySnapshot = await getDocs(collectionRef);
+    const sneakers = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id}));
+
+    displaySneakers(sneakers);
+  };
+
+  getData();
+
+  
